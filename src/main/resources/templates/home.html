@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Home</h1>
+
+<div th:if="${not #lists.isEmpty(receptek)}">
+    <table class="table table-striped">
+        <tr>
+            <th> name</th>
+        </tr>
+        <tr th:each="recept:${receptek}">
+            <td th:text="${recept.name}"></td>
+        </tr>
+    </table>
+</div>
+<div>
+    <form action="#" th:action="@{/recept/create}" th:object="${recept}" method="post">
+        <div id="name">
+            <label for="name">Recept név:</label>
+            <input type="text" name="name" placeholder="name" th:field="*{name}" />
+        </div>
+        <div id="text">
+            <label for="text">Recept szövege:</label>
+            <input type="text" name="text" placeholder="text" th:field="*{text}" />
+        </div>
+
+        <input type="submit" value="Submit!" />
+        <button type="reset">Cancel</button>
+    </form>
+</div>
+</body>
+</html>
