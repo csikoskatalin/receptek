@@ -12,13 +12,14 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "RECIPES")
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-public class Recept extends BaseEntity {
+public class Recept {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Integer id;
 
+    @Version
+    private int version;
 
     @Column(nullable = false)
     private String name;
@@ -27,7 +28,7 @@ public class Recept extends BaseEntity {
     private String text;
 
 
-    @ManyToOne(targetEntity = User.class, cascade = {CascadeType.ALL})
+    @ManyToOne
     @JoinColumn
     private User user;
 

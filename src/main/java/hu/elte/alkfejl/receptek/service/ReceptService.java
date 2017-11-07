@@ -9,13 +9,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Data
-
 public class ReceptService {
 
     @Autowired
     private ReceptRepository receptRepository;
-
-    private Recept recept;
 
     public Iterable<Recept> receptek() {
         return receptRepository.findAll();
@@ -23,13 +20,10 @@ public class ReceptService {
 
 
     public Recept create(Recept recept) {
-
-        this.recept = receptRepository.save(recept);
-        return recept;
+        return receptRepository.save(recept);
     }
 
     public void delete(int id) {
-
         receptRepository.delete(id);
     }
 

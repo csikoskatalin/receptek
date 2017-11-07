@@ -22,7 +22,8 @@ public class UserService {
 
     public User login(User user) throws UserNotValidException {
         if (isValid(user)) {
-            return this.user = userRepository.findByUsername(user.getUsername()).get();
+            this.user = userRepository.findByUsername(user.getUsername()).get();
+            return this.user;
         }
         throw new UserNotValidException();
     }
