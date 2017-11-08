@@ -40,7 +40,7 @@ public class Recept {
     private Status status;
 
     public enum Status {
-        PUBLIC, PRIVATE
+        PUBLIC, PRIVATE, PENDING
     }
 
 

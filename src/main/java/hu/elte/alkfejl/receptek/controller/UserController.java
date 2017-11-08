@@ -41,10 +41,11 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute User user) {
+    public String register(@ModelAttribute User user, Model model) {
         user.setRole(USER);
         userService.register(user);
-        return "home";
+        model.addAttribute("user", new User());
+        return "login";
     }
 
 }

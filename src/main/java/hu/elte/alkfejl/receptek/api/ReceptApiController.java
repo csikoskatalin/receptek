@@ -9,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static hu.elte.alkfejl.receptek.model.User.Role.ADMIN;
-import static hu.elte.alkfejl.receptek.model.User.Role.GUEST;
-import static hu.elte.alkfejl.receptek.model.User.Role.USER;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static hu.elte.alkfejl.receptek.model.User.Role.*;
 
 @RestController
 @RequestMapping("/v1/recept")
@@ -24,11 +26,29 @@ public class ReceptApiController {
     @Autowired
     private UserService userService;
 
-    @Role({USER, GUEST})
+    @Role({ADMIN,USER,GUEST,MODERATOR})
     @GetMapping
     private ResponseEntity<Iterable<Recept>> list() {
-        Iterable<Recept> receptek = receptService.receptek();
-        return ResponseEntity.ok(receptek);
+        if(this.userService.getUser().getRole()==ADMIN){
+            Iterable<Recept> receptek = receptService.receptek();
+            return ResponseEntity.ok(receptek);
+        }
+        else if(this.userService.getUser().getRole()==USER){
+            List recepteklist = receptService.publicReceptek();
+            recepteklist.addAll(receptService.usersReceptek());
+            Set receptekSet = new HashSet(recepteklist);
+            Iterable<Recept> receptek = receptekSet;
+            return ResponseEntity.ok(receptek);
+        }
+        else if(this.userService.getUser().getRole()==GUEST){
+            Iterable<Recept> receptek = receptService.publicReceptek();
+            return ResponseEntity.ok(receptek);
+        }
+        else{
+            Iterable<Recept> receptek = receptService.pendingReceptek();
+            return ResponseEntity.ok(receptek);
+        }
+
     }
 
     @Role({ USER})
@@ -36,6 +56,13 @@ public class ReceptApiController {
     private ResponseEntity<Recept> create(@RequestBody Recept recept) {
         Recept saved = receptService.create(recept);
         return ResponseEntity.ok(saved);
+    }
+
+    @Role({ADMIN, USER, GUEST,MODERATOR})
+    @GetMapping("/{id}")
+    private ResponseEntity<Recept> read(@PathVariable String id) {
+        Recept read = receptService.read(Integer.parseInt(id));
+        return ResponseEntity.ok(read);
     }
 
     @Role(ADMIN)
