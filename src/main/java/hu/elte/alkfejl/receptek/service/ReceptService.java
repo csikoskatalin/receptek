@@ -17,6 +17,9 @@ public class ReceptService {
     private ReceptRepository receptRepository;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private UserService userService;
 
 
@@ -37,6 +40,11 @@ public class ReceptService {
         return receptRepository.findByUser(user);
     }
 
+    public List<Recept> usersReceptekById(int id) {
+        User user= userRepository.findById(id).get();
+        return receptRepository.findByUser(user);
+    }
+
     public Recept read(int id) {
         return receptRepository.findOne(id);
     }
@@ -47,6 +55,16 @@ public class ReceptService {
 
     public void delete(int id) {
         receptRepository.delete(id);
+    }
+
+    public void deleteUsersRecept(int id) {
+        Iterable<Recept> receptek  = usersReceptekById(id);
+        receptRepository.delete(receptek);
+    }
+
+    public Recept update(int id, Recept recept) {
+        Recept currentRecept = receptRepository.findOne(id);
+        return receptRepository.save(currentRecept);
     }
 
 

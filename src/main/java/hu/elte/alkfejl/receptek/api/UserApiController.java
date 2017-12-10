@@ -49,7 +49,7 @@ public class UserApiController {
 
     @Role(ADMIN)
     @DeleteMapping("/{id}")
-    private ResponseEntity delete(@PathVariable int id) {
+    private ResponseEntity<User> delete(@PathVariable int id) {
         userService.delete(id);
         return ResponseEntity.ok().build();
     }

@@ -1,5 +1,6 @@
 package hu.elte.alkfejl.receptek.service;
 
+import hu.elte.alkfejl.receptek.model.Recept;
 import hu.elte.alkfejl.receptek.model.User;
 import hu.elte.alkfejl.receptek.repository.UserRepository;
 
@@ -39,11 +40,18 @@ public class UserService {
     }
 
     public boolean isLoggedIn() {
+
         return user != null;
     }
 
     public void  delete(int id){
+
         userRepository.delete(id);
+    }
+
+    public Iterable<User> listUsers() {
+
+        return userRepository.findAll();
     }
 
 

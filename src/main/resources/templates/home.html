@@ -13,7 +13,13 @@
             <th> name</th>
         </tr>
         <tr th:each="recept:${receptek}">
-            <td th:text="${recept.name}"></td>
+            <td th:text="${recept.name}" ></td>
+            <td>
+                <form th:action="@{read}" th:method="GET" th:object="${recept}">
+                    <input type="hidden" name="id" placeholder="name" th:value="${recept.id}" id="id"/>
+                    <button type="submit" value="Submit" class="btn btn-danger">Show</button>
+                </form>
+            </td>
         </tr>
     </table>
 </div>

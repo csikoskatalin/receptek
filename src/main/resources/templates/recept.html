@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Recept</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1 th:text="${recept.name}"></h1>
+
+
+<form action="#" th:action="@{/recept/read}" th:object="${recept}" method="post">
+    <div id="id">
+        <input type="hidden" name="id" placeholder="name" th:value="${recept.id}" id="id"/>
+    </div>
+    <div id="status">
+        <input type="hidden" name="status" placeholder="status" th:value="PRIVATE" status="status"/>
+        <button type="submit" value="PRIVATE" class="btn btn-danger">PRIVATE</button>
+    </div>
+    <div id="status">
+        <input type="hidden" name="status" placeholder="status" th:value="PUBLIC" status="status"/>
+        <button type="submit" value="PUBLIC" class="btn btn-danger">PUBLIC</button>
+    </div>
+</form>
+
+</body>
+</html>
