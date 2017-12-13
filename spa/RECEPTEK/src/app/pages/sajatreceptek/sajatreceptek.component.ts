@@ -17,8 +17,8 @@ export class SajatreceptekComponent implements OnInit {
 
 
   receptForm: FormGroup = new FormGroup({
-    description: new FormControl('', [Validators.required]),
-    location: new FormControl('', [Validators.required])
+    text: new FormControl('', [Validators.required]),
+    name: new FormControl('', [Validators.required])
   });
 
   constructor(private receptService: ReceptService, private router: Router, private authService: AuthService) { }
@@ -30,25 +30,35 @@ export class SajatreceptekComponent implements OnInit {
 
     this.receptService.getReceptek()
       .subscribe(data => {
-        data.filter(data => data.user=this.authService.user)
+        let ujdata: Recept[] = [];
+        data.filter(d => {
+          if ( d.user.id === this.authService.user.id ) {
+            ujdata.push(d);
+          }
+        });
+        console.log(ujdata);
+        this.dataSource = new MatTableDataSource<Recept>(ujdata);
 
-        this.dataSource = new MatTableDataSource<Recept>(data);
+
       } , error => console.log(error))
 
 
   }
+
   get name() {
-    return this.receptForm.get('Name')
+    return this.receptForm.get('name')
   }
 
   get text() {
-    return this.receptForm.get('Text')
+    return this.receptForm.get('text')
   }
 
   submit() {
     this.receptService.create(new Recept(this.name.value, this.text.value))
       .subscribe(
-        res => this.router.navigate(['/sajatreceptek']),
+        res => {
+          this.router.navigate(['/receptek'])
+        },
         err => console.log(err)
       )
   }

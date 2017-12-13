@@ -1,6 +1,8 @@
 package hu.elte.alkfejl.receptek.api;
 
+import hu.elte.alkfejl.receptek.model.Recept;
 import hu.elte.alkfejl.receptek.model.User;
+import hu.elte.alkfejl.receptek.service.ReceptService;
 import hu.elte.alkfejl.receptek.service.UserService;
 import hu.elte.alkfejl.receptek.service.annotations.Role;
 import hu.elte.alkfejl.receptek.service.exceptions.UserNotValidException;
@@ -15,9 +17,10 @@ import static hu.elte.alkfejl.receptek.model.User.Role.USER;
 @RestController
 @RequestMapping("/v1/user")
 public class UserApiController {
-
     private final UserService userService;
 
+    @Autowired
+    private ReceptService receptService;
 
     @Autowired
     public UserApiController(UserService userService) {
@@ -51,6 +54,9 @@ public class UserApiController {
     @Role(ADMIN)
     @DeleteMapping("users/{id}")
     private ResponseEntity<User> delete(@PathVariable int id) {
+        for ( Recept r : this.receptService.usersReceptekById(id)) {
+            this.receptService.delete(r.getId());
+        }
         userService.delete(id);
         return ResponseEntity.ok().build();
     }

@@ -17,6 +17,7 @@ import { SajatreceptekComponent } from './pages/sajatreceptek/sajatreceptek.comp
 import { ReceptdetailsComponent } from './pages/receptdetails/receptdetails.component';
 import {ReceptService} from "./services/recept.service";
 import { UserlistComponent } from './pages/userlist/userlist.component';
+import {MatCardModule} from '@angular/material/card';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { UserlistComponent } from './pages/userlist/userlist.component';
     HttpModule,
     RouterModule.forRoot(appRoutes),
     MaterialItemsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatCardModule
 
 
   ],

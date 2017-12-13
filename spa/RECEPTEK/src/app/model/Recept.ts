@@ -14,7 +14,7 @@ export class Recept {
   status: String;
   bevasarlolista: String[];
 
-  constructor(text?: String, name?: String, status?: String, user?: User, id?: number) {
+  constructor(name?: String, text?: String, status?: String, user?: User, id?: number) {
     this.user = user;
     this.name = name;
     this.status = status;

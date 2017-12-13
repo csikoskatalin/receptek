@@ -20,7 +20,10 @@
       </mat-form-field>
     </div>
 
-    <div class="example-container mat-elevation-z8">
+    <button mat-raised-button class="mat-primary" (click)="submit()" [disabled]="!receptForm.valid">Send</button>
+    <a mat-button class="mat-accent" routerLink="/sajatreceptek">Back</a>
+
+    <div >
       <mat-table #table [dataSource]="dataSource">
 
 
@@ -45,7 +48,6 @@
       </mat-table>
     </div>
 
-    <button mat-raised-button class="mat-primary" (click)="submit()" [disabled]="!receptForm.valid">Send</button>
-    <a mat-button class="mat-accent" routerLink="/sajatreceptek">Back</a>
+
   </form>
 </div>

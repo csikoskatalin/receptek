@@ -23,7 +23,7 @@ export class MenuComponent implements OnInit {
 
   private roleMenus = new Map<String, MenuItem[]>([
     [Role.GUEST, [...this.common]],
-    [Role.USER, [...this.common, {link: '/sajatreceptek', title: 'Saját eceptek'},{link: '/ista', title: 'Bevásárlólista'}]],
+    [Role.USER, [...this.common, {link: '/sajatreceptek', title: 'Saját eceptek'},{link: '/lista', title: 'Bevásárlólista'}]],
     [Role.ADMIN, [...this.common,{link: '/users', title: 'Users'}]],
     [Role.MODERATOR, [...this.common]],
   ]);

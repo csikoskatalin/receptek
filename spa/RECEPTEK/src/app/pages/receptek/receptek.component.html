@@ -4,12 +4,12 @@
 
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+      <mat-cell *matCellDef="let element" > {{element.id}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef> Revept neve </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      <mat-cell *matCellDef="let element"mat-button [routerLink]="'/receptek/' + element.id"> {{element.name}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="status">

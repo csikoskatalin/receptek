@@ -27,7 +27,7 @@ export class RegisterComponent implements OnInit {
   submit() {
     this.authService.register(new User(this.username.value, this.password.value, this.email.value))
       .subscribe(
-        res => this.router.navigate(['/issues']),
+        res => this.router.navigate(['/receptek']),
         err => console.log(err))
   }
 

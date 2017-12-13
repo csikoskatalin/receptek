@@ -17,7 +17,6 @@ import static hu.elte.alkfejl.receptek.model.User.Role.*;
 
 @RestController
 @RequestMapping("/v1/recept")
-
 public class ReceptApiController {
 
     @Autowired
@@ -50,21 +49,22 @@ public class ReceptApiController {
         }
 
     }
-
-    @Role({ USER})
+    @CrossOrigin
     @PostMapping
     private ResponseEntity<Recept> create(@RequestBody Recept recept) {
+        recept.setStatus(Recept.Status.PRIVATE);
+        recept.setUser(userService.getUser());
         Recept saved = receptService.create(recept);
         return ResponseEntity.ok(saved);
     }
-
+    @CrossOrigin
     @Role({ADMIN, USER, GUEST,MODERATOR})
     @GetMapping("/{id}")
     private ResponseEntity<Recept> read(@PathVariable String id) {
         Recept read = receptService.read(Integer.parseInt(id));
         return ResponseEntity.ok(read);
     }
-
+    @CrossOrigin
     @Role(ADMIN)
     @DeleteMapping("/{id}")
     private ResponseEntity delete(@PathVariable int id) {

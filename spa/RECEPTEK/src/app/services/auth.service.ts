@@ -32,7 +32,7 @@ export class AuthService {
   }
 
   register(user: User) {
-    return this.http.post(Server.routeTo(Routes.REGISTER), user)
+    return this.http.post(Server.routeTo(Routes.REGISTER), user, {withCredentials: true})
       .map(res => {
         this.isLoggedIn = true;
         this.user = res.json();
@@ -41,8 +41,7 @@ export class AuthService {
   }
 
   delete(id: number) {
-    return this.http.delete(Server.routeTo(Routes.USERS) + '/' + id)
-      .map(res => res.json())
+    return this.http.delete(Server.routeTo(Routes.USERS) + '/' + id, {withCredentials: true})
   }
 
 

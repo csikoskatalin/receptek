@@ -30,8 +30,10 @@ export class UserlistComponent implements OnInit {
   delete(id: number) {
     this.authService.delete(id)
       .subscribe(
-        res => console.log(res),
-        err => console.log(err)
+        res => {
+          this.router.navigate(['/receptek'])
+        },
+            err => console.log(err)
       );
   }
 
