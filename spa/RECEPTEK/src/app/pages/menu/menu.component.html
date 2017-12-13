@@ -1,0 +1,22 @@
+<mat-toolbar id="top-menu" color="primary">
+  <div class="left-side">
+    <h1 class="mat-h1">Receptek</h1>
+  </div>
+
+  <div class="center">
+    <a mat-button *ngFor="let menu of menus" [routerLink]="menu.link" routerLinkActive="active">{{menu.title}}</a>
+  </div>
+
+  <div class="right-side">
+    <div *ngIf="!authService.isLoggedIn" class="unauthorized">
+      <a mat-button routerLink="/login" routerLinkActive="active">Login</a>/
+      <a mat-button routerLink="/register"
+         routerLinkActive="active">Register</a>
+    </div>
+
+    <div *ngIf="authService.isLoggedIn" class="authorized">
+      <button mat-button (click)="logout()">Logout2</button>
+    </div>
+  </div>
+</mat-toolbar>
+

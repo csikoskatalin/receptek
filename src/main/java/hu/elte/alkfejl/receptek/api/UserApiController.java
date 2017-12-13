@@ -32,7 +32,7 @@ public class UserApiController {
         }
         return ResponseEntity.badRequest().build();
     }
-
+    @CrossOrigin
     @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody User user) {
         try {
@@ -41,17 +41,32 @@ public class UserApiController {
             return ResponseEntity.badRequest().build();
         }
     }
-
+    @CrossOrigin
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody User user) {
         return ResponseEntity.ok(userService.register(user));
     }
 
+    @CrossOrigin
     @Role(ADMIN)
-    @DeleteMapping("/{id}")
+    @DeleteMapping("users/{id}")
     private ResponseEntity<User> delete(@PathVariable int id) {
         userService.delete(id);
         return ResponseEntity.ok().build();
+    }
+
+    @CrossOrigin
+    @GetMapping("/logout")
+    public ResponseEntity logout() {
+        this.userService.setUser(null);
+        return ResponseEntity.ok().build();
+    }
+    @CrossOrigin
+    @Role({ADMIN})
+    @GetMapping("/users")
+    private ResponseEntity<Iterable<User>> list() {
+        Iterable<User> users = userService.listUsers();
+        return ResponseEntity.ok(users);
     }
 
 }

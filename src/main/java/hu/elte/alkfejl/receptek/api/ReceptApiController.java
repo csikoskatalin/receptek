@@ -25,7 +25,7 @@ public class ReceptApiController {
 
     @Autowired
     private UserService userService;
-
+    @CrossOrigin
     @Role({ADMIN,USER,GUEST,MODERATOR})
     @GetMapping
     private ResponseEntity<Iterable<Recept>> list() {
