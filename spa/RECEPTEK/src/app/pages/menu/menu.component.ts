@@ -18,8 +18,7 @@ interface MenuItem {
 export class MenuComponent implements OnInit {
 
   private common: MenuItem[] = [
-    {link: '/receptek', title: 'Receptek'},
-    {link: '/home', title: 'Home'}
+    {link: '/receptek', title: 'Receptek'}
   ];
 
   private roleMenus = new Map<String, MenuItem[]>([
